@@ -1,10 +1,10 @@
 #include <exception>
 #include <iostream>
 
+#include <types.h>
+
 int main()
 {
-    enum { kExitSuccess = 0, kExitFailure = 1 };
-
     try
     {
     }
@@ -12,8 +12,8 @@ int main()
     catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
-        return kExitFailure;
+        return photonmapping::kFailure;
     }
 
-    return kExitSuccess;
+    return photonmapping::kSuccess;
 }
