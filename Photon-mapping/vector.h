@@ -36,10 +36,12 @@ namespace photonmapping
 
         Vector3D& operator+=(const Vector3D&);
         Vector3D& operator-=(const Vector3D&);
+
         Vector3D& operator*=(T scalar_value);
         Vector3D& operator/=(T scalar_value);
 
         void normalize();
+        void randomize();
 
         static Vector3D projection(const Vector3D&, const Vector3D&);
         static Vector3D distance_ratio_to_point(const Vector3D& origin, const Vector3D& direction, T distance);
@@ -65,27 +67,24 @@ namespace photonmapping
 
     template<typename T>
     Vector3D<T> operator+(const Vector3D<T>&, const Vector3D<T>&);
-
     template<typename T>
     Vector3D<T> operator-(const Vector3D<T>&, const Vector3D<T>&);
 
     template<typename T>
-    T operator*(const Vector3D<T>&, const Vector3D<T>&);
+    Vector3D<T> operator*(const Vector3D<T>&, T scalar_value);
+    template<typename T>
+    Vector3D<T> operator*(T scalar_value, const Vector3D<T>&);
+    template<typename T>
+    Vector3D<T> operator/(const Vector3D<T>&, T scalar_value);
+    template<typename T>
+    Vector3D<T> operator/(T scalar_value, const Vector3D<T>&);
 
     template<typename T>
     Vector3D<T> operator^(const Vector3D<T>&, const Vector3D<T>&);
 
     template<typename T>
-    Vector3D<T> operator*(const Vector3D<T>&, T scalar_value);
+    T operator*(const Vector3D<T>&, const Vector3D<T>&);
 
-    template<typename T>
-    Vector3D<T> operator*(T scalar_value, const Vector3D<T>&);
-
-    template<typename T>
-    Vector3D<T> operator/(const Vector3D<T>, T scalar_value);
-
-    template<typename T>
-    Vector3D<T> operator/(T scalar_value, const Vector3D<T>);
 
 } // namespace photonmapping
 

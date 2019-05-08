@@ -1,5 +1,8 @@
 #include <vector.h>
 
+#include <functional>
+#include <random>
+
 namespace photonmapping
 {
 
@@ -7,7 +10,6 @@ namespace photonmapping
     Vector3D<T>::Vector3D() : x_(0), y_(0), z_(0), norm_(0), squared_norm_(0)
     {
     }
-
     template<typename T>
     Vector3D<T>::Vector3D(T x, T y, T z) : x_(x), y_(y), z_(z)
     {
@@ -19,7 +21,6 @@ namespace photonmapping
         : x_(v.x_), y_(v.y_), z_(v.z_), norm_(v.norm_), squared_norm_(v.squared_norm_)
     {
     }
-
     template<typename T>
     Vector3D<T>& Vector3D<T>::operator=(const Vector3D& v)
     {
@@ -81,6 +82,7 @@ namespace photonmapping
         set(x_ - v.x_, y_ - v.y_, z_ - v.z_);
         return *this;
     }
+
     template<typename T>
     Vector3D<T>& Vector3D<T>::operator*=(T scalar_value)
     {
@@ -96,6 +98,24 @@ namespace photonmapping
 
     template<typename T>
     void Vector3D<T>::normalize() { *this /= norm_; }
+
+    template<typename T>
+    void Vector3D<T>::randomize()
+    {
+        std::random_device random;
+        const std::mt19937 generator(random());
+        const std::uniform_real_distribution<> distribution(-1, 1);
+
+        const std::function<double()> give_random = std::bind(distribution, generator);
+
+        do
+        {
+            set(give_random(), give_random(), give_random());
+        }
+        while (norm_ > 1);
+
+        normalize();
+    }
 
     template<typename T>
     Vector3D<T> Vector3D<T>::projection(const Vector3D<T>& left_vector, const Vector3D<T>& right_vector)
@@ -151,24 +171,7 @@ namespace photonmapping
             left_vector.get_z() - right_vector.get_z()
             );
     }
-    template<typename T>
-    T operator*(const Vector3D<T>& left_vector, const Vector3D<T>& right_vector)
-    {
-        return (
-            (left_vector.get_x() * right_vector.get_x()) +
-            (left_vector.get_y() * right_vector.get_y()) +
-            (left_vector.get_z() * right_vector.get_z())
-            );
-    }
-    template<typename T>
-    Vector3D<T> operator^(const Vector3D<T>& left_vector, const Vector3D<T>& right_vector)
-    {
-        return Vector3D<T>(
-            left_vector.get_z() * right_vector.get_y() - (left_vector.get_y() * right_vector.get_z()),
-            left_vector.get_x() * right_vector.get_z() - (left_vector.get_z() * right_vector.get_x()),
-            left_vector.get_y() * right_vector.get_x() - (left_vector.get_x() * right_vector.get_y())
-            );
-    }
+
     template<typename T>
     Vector3D<T> operator*(const Vector3D<T>& v, T scalar_value)
     {
@@ -188,6 +191,26 @@ namespace photonmapping
     Vector3D<T> operator/(T scalar_value, const Vector3D<T>& v)
     {
         return Vector3D<T>(v.get_x() / scalar_value, v.get_y() / scalar_value, v.get_z() / scalar_value);
+    }
+
+    template<typename T>
+    Vector3D<T> operator^(const Vector3D<T>& left_vector, const Vector3D<T>& right_vector)
+    {
+        return Vector3D<T>(
+            left_vector.get_z() * right_vector.get_y() - (left_vector.get_y() * right_vector.get_z()),
+            left_vector.get_x() * right_vector.get_z() - (left_vector.get_z() * right_vector.get_x()),
+            left_vector.get_y() * right_vector.get_x() - (left_vector.get_x() * right_vector.get_y())
+            );
+    }
+
+    template<typename T>
+    T operator*(const Vector3D<T>& left_vector, const Vector3D<T>& right_vector)
+    {
+        return (
+            (left_vector.get_x() * right_vector.get_x()) +
+            (left_vector.get_y() * right_vector.get_y()) +
+            (left_vector.get_z() * right_vector.get_z())
+            );
     }
 
     template Vector3D<double>;
