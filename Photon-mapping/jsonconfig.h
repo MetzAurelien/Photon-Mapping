@@ -1,7 +1,6 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-#include <iconfig.h>
 
 #include <string>
 
@@ -10,7 +9,7 @@
 namespace photonmapping
 {
 
-    class JsonConfig : public IConfig
+    class JsonConfig
     {
     public:
         
@@ -22,22 +21,37 @@ namespace photonmapping
         void load(const char* filename);
 
         template<typename T, typename... Args>
-        T get(Args... args) const
-        {
-            return get(config_, args);
-        }
+        T get(Args... args) const;
 
     private:
 
-        template<typename... Args>
-        const nlohmann::json& get(const nlohmann::json& json, const char* first, Args... args)
-        {
-            return get(json[first], args...);
-        }
+        template<typename T>
+        T get(const nlohmann::json&, const char* name) const;
+
+        template<typename T, typename... Args>
+        T get(const nlohmann::json&, const char* first, Args...) const;
 
         nlohmann::json config_;
 
     };
+
+    template<typename T, typename... Args>
+    T JsonConfig::get(Args... args) const
+    {
+        return get<T>(config_, args...);
+    }
+
+    template<typename T>
+    T JsonConfig::get(const nlohmann::json& json, const char* name) const
+    {
+        return json[name];
+    }
+
+    template<typename T, typename... Args>
+    T JsonConfig::get(const nlohmann::json& json, const char* first, Args... args) const
+    {
+        return get<T>(json[first], args...);
+    }
 
 } // photonmapping
 
