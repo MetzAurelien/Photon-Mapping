@@ -29,7 +29,7 @@ namespace photonmapping
         T get_squared_norm() const;
 
         Vector3D operator-() const;
-        Vector3D get_normalized_coppy() const;
+        Vector3D get_normalized() const;
 
         void set(T x, T y, T z);
         void set_x(T x);
@@ -108,7 +108,7 @@ namespace photonmapping
         return Vector3D<T>(-x_, -y_, -z_, norm_, squared_norm_);
     }
     template<typename T>
-    Vector3D<T> Vector3D<T>::get_normalized_coppy() const
+    Vector3D<T> Vector3D<T>::get_normalized() const
     {
         return Vector3D<T>(x_ / norm_, y_ / norm_, z_ / norm_, 1, 1);
     }
