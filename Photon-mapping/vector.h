@@ -18,8 +18,8 @@ namespace photonmapping
         Vector3D();
         Vector3D(T x, T y, T z);
 
-        Vector3D(const Vector3D&);
-        Vector3D& operator=(const Vector3D&);
+        Vector3D(const Vector3D&) = default;
+        Vector3D& operator=(const Vector3D&) = default;
 
         T get_x() const;
         T get_y() const;
@@ -72,22 +72,6 @@ namespace photonmapping
     Vector3D<T>::Vector3D(T x, T y, T z) : x_(x), y_(y), z_(z)
     {
         update();
-    }
-
-    template<typename T>
-    Vector3D<T>::Vector3D(const Vector3D<T>& v)
-        : x_(v.x_), y_(v.y_), z_(v.z_), norm_(v.norm_), squared_norm_(v.squared_norm_)
-    {
-    }
-    template<typename T>
-    Vector3D<T>& Vector3D<T>::operator=(const Vector3D& v)
-    {
-        x_ = v.x_;
-        y_ = v.y_;
-        z_ = v.z_;
-        norm_ = v.norm_;
-        squared_norm_ = v.squared_norm_;
-        return *this;
     }
 
     template<typename T>

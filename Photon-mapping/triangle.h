@@ -15,6 +15,9 @@ namespace photonmapping
 
         Triangle(const Color<Real>&, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
             const Point3D<Real>&, const Point3D<Real>&, const Point3D<Real>&);
+        
+        Triangle(const Triangle&) = default;
+        Triangle& operator=(const Triangle&) = default;
 
         const Point3D<Real>& get_a() const;
         const Point3D<Real>& get_b() const;

@@ -18,6 +18,9 @@ namespace photonmapping
 
         Shape(const Color<Real>&, Real absorption_ratio, Real reflectance_ratio, Real refractance_ratio);
 
+        Shape(const Shape&) = default;
+        Shape& operator=(const Shape&) = default;
+
         const Color<Real>& get_color() const;
         Real get_absorption_ratio() const;
         Real get_reflectance_ratio() const;

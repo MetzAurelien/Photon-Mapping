@@ -16,6 +16,9 @@ namespace photonmapping
         Sphere(const Color<Real>&, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
             const Point3D<Real>& position, Real radius);
 
+        Sphere(const Sphere&) = default;
+        Sphere& operator=(const Sphere&) = default;
+
         const Point3D<Real>& get_center() const;
         Real get_radius() const;
 

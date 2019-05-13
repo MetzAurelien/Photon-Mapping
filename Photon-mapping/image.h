@@ -12,10 +12,11 @@ namespace photonmapping
     public:
 
         using Pixels = std::vector<unsigned char>;
+        using SizeType = Pixels::size_type;
 
         static constexpr Pixels::size_type kPixelSize = 4;
 
-        Image(const std::string& filename, Pixels::size_type width, Pixels::size_type height);
+        Image(const std::string& filename, SizeType width, SizeType height);
 
         Image(const Image&) = delete;
         Image& operator=(const Image&) = delete;
@@ -23,8 +24,8 @@ namespace photonmapping
     private:
 
         std::string filename_;
-        Pixels::size_type width_;
-        Pixels::size_type height_;
+        SizeType width_;
+        SizeType height_;
         Pixels pixels_;
 
     };

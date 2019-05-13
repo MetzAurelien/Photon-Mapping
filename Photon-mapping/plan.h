@@ -16,6 +16,9 @@ namespace photonmapping
         Plan(const Color<Real>&, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
             const Point3D<Real>& position, const Vector3D<Real>& normal);
 
+        Plan(const Plan&) = default;
+        Plan& operator=(const Plan&) = default;
+
         const Point3D<Real>& get_position() const;
 
         virtual void output(std::ostream&) const;
