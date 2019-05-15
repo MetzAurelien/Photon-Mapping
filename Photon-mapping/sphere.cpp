@@ -2,9 +2,7 @@
 
 namespace photonmapping
 {
-    using Real = Sphere::Real;
-    using ImpactDistanceRatio = Sphere::ImpactDistanceRatio;
-    
+
     Sphere::Sphere(const Color<Real>& color, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
         const Point3D<Real>& position, Real radius)
         : Shape(color, absorption_ratio, reflection_ratio, refraction_ratio), center_(position), radius_(radius)

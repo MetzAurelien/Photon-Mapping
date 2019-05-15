@@ -9,10 +9,7 @@ namespace photonmapping
     class Plan : public Shape
     {
     public:
-
-        using Real = Shape::Real;
-        using ImpactDistanceRation = Shape::ImpactDistanceRatio;
-
+        
         Plan(const Color<Real>&, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
             const Point3D<Real>& position, const Vector3D<Real>& normal);
 

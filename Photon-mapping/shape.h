@@ -13,9 +13,6 @@ namespace photonmapping
     {
     public:
 
-        using Real = double;
-        using ImpactDistanceRatio = std::pair<bool, Real>;
-
         Shape(const Color<Real>&, Real absorption_ratio, Real reflectance_ratio, Real refractance_ratio);
 
         Shape(const Shape&) = default;

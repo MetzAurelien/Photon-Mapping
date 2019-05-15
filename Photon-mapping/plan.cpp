@@ -2,8 +2,6 @@
 
 namespace photonmapping
 {
-    using Real = Plan::Real;
-    using ImpactDistanceRatio = Plan::ImpactDistanceRatio;
 
     Plan::Plan(const Color<Real>& color, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
         const Point3D<Real>& position, const Vector3D<Real>& normal)

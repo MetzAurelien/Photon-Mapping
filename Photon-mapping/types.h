@@ -12,6 +12,9 @@ namespace photonmapping
         kFailure = 1
     };
 
+    using Real = double;
+    using ImpactDistanceRatio = std::pair<bool, Real>;
+
     template<typename T>
     using Color = std::array<T, 3>;
 

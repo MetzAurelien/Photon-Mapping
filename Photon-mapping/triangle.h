@@ -10,9 +10,6 @@ namespace photonmapping
     {
     public:
 
-        using Real = Shape::Real;
-        using ImpactDistanceRation = Shape::ImpactDistanceRatio;
-
         Triangle(const Color<Real>&, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
             const Point3D<Real>&, const Point3D<Real>&, const Point3D<Real>&);
         

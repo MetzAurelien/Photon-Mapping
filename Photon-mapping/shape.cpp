@@ -2,7 +2,6 @@
 
 namespace photonmapping
 {
-    using Real = Shape::Real;
 
     Shape::Shape(const Color<Real>& color, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio_)
         : color_(color),
