@@ -21,7 +21,7 @@ namespace photonmapping
         Scene(const Scene&) = default;
         Scene& operator=(const Scene&) = default;
 
-        std::pair<bool, Impact> trace(const Point3D<Real>& origin, const Vector3D<Real>& direction);
+        std::pair<bool, Impact> trace(const Point3D<Real>& origin, const Vector3D<Real>& direction) const;
 
         std::vector<Light> lights;
         std::vector<std::shared_ptr<Shape>> shapes;

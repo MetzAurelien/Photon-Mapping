@@ -9,7 +9,7 @@
 namespace photonmapping
 {
 
-    std::pair<bool, Impact> Scene::trace(const Point3D<Real>& origin, const Vector3D<Real>& direction)
+    std::pair<bool, Impact> Scene::trace(const Point3D<Real>& origin, const Vector3D<Real>& direction) const
     {
         using Distance = std::pair<const std::shared_ptr<Shape>&, Real>;
 
