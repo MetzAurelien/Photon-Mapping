@@ -21,9 +21,13 @@ namespace photonmapping
         Vector3D(const Vector3D&) = default;
         Vector3D& operator=(const Vector3D&) = default;
 
+        Vector3D(Vector3D&&);
+        Vector3D& operator=(Vector3D&&);
+
         T get_x() const;
         T get_y() const;
         T get_z() const;
+        T get(uint8_t axis) const;
 
         T get_norm() const;
         T get_squared_norm() const;
@@ -35,6 +39,7 @@ namespace photonmapping
         void set_x(T x);
         void set_y(T y);
         void set_z(T z);
+        void set(uint8_t axis, T value);
 
         Vector3D& operator+=(const Vector3D&);
         Vector3D& operator-=(const Vector3D&);
@@ -75,11 +80,41 @@ namespace photonmapping
     }
 
     template<typename T>
+    Vector3D<T>::Vector3D(Vector3D<T>&& other)
+        : norm_(other.norm_), squared_norm_(other.squared_norm_), x_(other.x_), y_(other.y_), z_(other.z_)
+    {
+    }
+    template<typename T>
+    Vector3D<T>& Vector3D<T>::operator=(Vector3D&& other)
+    {
+        norm_ = other.norm_;
+        squared_norm_ = other.squared_norm_;
+        x_ = other.x_;
+        y_ = other.y_;
+        z_ = other.z_;
+    }
+
+    template<typename T>
     T Vector3D<T>::get_x() const { return x_; }
     template<typename T>
     T Vector3D<T>::get_y() const { return y_; }
     template<typename T>
     T Vector3D<T>::get_z() const { return z_; }
+    template<typename T>
+    T Vector3D<T>::get(uint8_t axis) const
+    {
+        switch (axis)
+        {
+        case 0:
+            return x_;
+        case 1:
+            return y_;
+        case 2:
+            return z_;
+        default:
+            return x_;
+        }
+    }
 
     template<typename T>
     T Vector3D<T>::get_norm() const { return norm_; }
@@ -111,7 +146,22 @@ namespace photonmapping
     void Vector3D<T>::set_y(T y) { set(x_, y, z_); }
     template<typename T>
     void Vector3D<T>::set_z(T z) { set(x_, y_, z); }
-
+    template<typename T>
+    void Vector3D<T>::set(uint8_t axis, T value)
+    {
+        switch (axis)
+        {
+        case 0:
+            set(value, y_, z_);
+            break;
+        case 1:
+            set(x_, value, z_);
+            break;
+        case 2:
+            set(x_, y_, value);
+            break;
+        }
+    }
     template<typename T>
     Vector3D<T>& Vector3D<T>::operator+=(const Vector3D& v)
     {

@@ -11,7 +11,7 @@ namespace photonmapping
     {
         Color<Real> power;
         Impact impact;
-        char plane;
+        uint8_t plane;
     };
 
 } // photonmapping
