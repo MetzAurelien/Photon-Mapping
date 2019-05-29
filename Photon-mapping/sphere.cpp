@@ -5,7 +5,8 @@ namespace photonmapping
 
     Sphere::Sphere(const Color<Real>& color, Real absorption_ratio, Real reflection_ratio, Real refraction_ratio,
         const Point3D<Real>& position, Real radius)
-        : Shape(color, absorption_ratio, reflection_ratio, refraction_ratio), center_(position), radius_(radius)
+        : Shape(color, absorption_ratio, reflection_ratio, refraction_ratio),
+        center_(position), radius_(radius), squared_radius_(radius * radius)
     {
     }
 
@@ -27,24 +28,31 @@ namespace photonmapping
 
     ImpactDistanceRatio Sphere::get_impact_distance_ratio(const Point3D<Real>& origin, const Vector3D<Real>& direction) const
     {
-        const Vector3D<Real> origin_to_center = center_ - origin;
-        const Real origin_to_center_scalar_direction = origin_to_center * direction;
+        const Vector3D<Real> origin_center = center_ - origin;
 
-        const Real discriminant = std::pow(origin_to_center_scalar_direction, 2) -
-            (origin_to_center * origin_to_center) + std::pow(radius_, 2);
-
-        if (discriminant >= 0)
+        if ((origin_center * direction) > 0 && origin_center.get_squared_norm() > squared_radius_)
         {
-            const std::array<Real, 2> solutions = 
+            const Vector3D<Real> center_projection = Vector3D<Real>::projection(direction, origin_center) + origin;
+            const Real center_projection_center_distance = (center_ - center_projection).get_squared_norm();
+
+            if (center_projection_center_distance > squared_radius_)
             {
-                origin_to_center_scalar_direction + std::sqrt(discriminant),
-                origin_to_center_scalar_direction - std::sqrt(discriminant)
-            };
+                return ImpactDistanceRatio(false, 0);
+            }
+            else
+            {
+                const Real distance = std::sqrt(squared_radius_ - center_projection_center_distance);
 
-            for (Real solution : solutions)
-                if (solution > 0) return ImpactDistanceRatio(true, solution);
+                if (origin_center.get_squared_norm() > squared_radius_)
+                {
+                    return ImpactDistanceRatio(true, (center_projection - origin).get_norm() - distance);
+                }
+                else
+                {
+                    return ImpactDistanceRatio(true, (center_projection - origin).get_norm() - distance);
+                }
+            }
         }
-
         return ImpactDistanceRatio(false, 0);
     }
 

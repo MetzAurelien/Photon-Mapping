@@ -27,6 +27,7 @@ namespace photonmapping
     private:
 
         Point3D<Real> center_;
+        Real squared_radius_;
         Real radius_;
     };
 
