@@ -29,7 +29,7 @@ namespace photonmapping
     {
         if (-direction * normal_ <= 0) return ImpactDistanceRatio(false, 0);
 
-        float dist = ((a_ - origin) * normal_) / (direction * normal_);
+        Real dist = ((a_ - origin) * normal_) / (direction * normal_);
 
         Point3D<Real> intersection = Vector3D<Real>::distance_ratio_to_point(origin, direction, dist);
 

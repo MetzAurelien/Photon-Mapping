@@ -92,6 +92,7 @@ namespace photonmapping
         x_ = other.x_;
         y_ = other.y_;
         z_ = other.z_;
+        return *this;
     }
 
     template<typename T>

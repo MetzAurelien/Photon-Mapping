@@ -24,10 +24,7 @@ namespace photonmapping
 
     ImpactDistanceRatio Plan::get_impact_distance_ratio(const Point3D<Real>& origin, const Vector3D<Real>& direction) const
     {
-        if (-direction * normal_ <= 0)
-        {
-            return ImpactDistanceRatio(false, 0);
-        }
+        if (-direction * normal_ <= 0) return ImpactDistanceRatio(false, 0);
 
         return ImpactDistanceRatio(true, ((position_ - origin) * normal_) / (direction * normal_));
     }
