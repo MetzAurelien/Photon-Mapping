@@ -1,6 +1,7 @@
 #ifndef IMAGE_H_
 #define IMAGE_H_
 
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -21,7 +22,24 @@ namespace photonmapping
         Image(const Image&) = delete;
         Image& operator=(const Image&) = delete;
 
+        SizeType get_width() const;
+        SizeType get_height() const;
+
+        void set(SizeType x, SizeType y, Pixels::value_type r, Pixels::value_type g, Pixels::value_type b, Pixels::value_type a);
+
+        unsigned int encode() const;
+
     private:
+
+        enum Composant {
+            kRed = 0,
+            kBlue = 1,
+            kGreen = 2,
+            kAlpha = 3,
+            kNumber = 4
+        };
+
+        std::mutex mutex_;
 
         std::string filename_;
         SizeType width_;
